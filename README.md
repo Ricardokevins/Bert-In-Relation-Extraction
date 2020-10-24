@@ -54,6 +54,8 @@ Model download
 
 原数据地址：https://ai.baidu.com/broad/download?dataset=dureader
 
+![image-20201025015454713](figure/image-20201025015454713.png)
+
 我对数据进行了预处理，提取关系抽取需要的部分
 
 关系设定有49类，还是非常的丰富的
