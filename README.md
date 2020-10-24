@@ -2,22 +2,6 @@
 
 大创所需，所以写了一个模型用来完成关系抽取
 
-# 使用方法
-
-将DUIE文件路径放置于代码同目录
-
-将bert-base-chinese放置于同目录下的bert-base-chinese下或者自行指定位置
-
-python3 main.py执行训练，并得到Fine-Tuing后的BERT
-
-执行python3 test.py得到样例输出，或自行阅读代码，修改test函数的传入参数内容即可自定义。
-
-如果仅用于测试和实际使用，可以下载已经训练好的Model，然后调用test.py下的test函数
-
-地址：
-
-
-
 效果：
 
 ```
@@ -37,9 +21,38 @@ Source Text:  《甜蜜与厮杀》是连载在红袖添香网上的一部奇幻
 Entity1:  kijimi1  Entity2:  甜蜜与厮杀  Predict Relation:  作者  True Relation:  作者
 ```
 
+
+
+# 使用方法
+
+## 准备
+
+1. 将DUIE文件路径放置于代码同目录（或者自己的数据，具体可见loader.py)
+
+2. 将bert-base-chinese放置于同目录下的bert-base-chinese下或者自行指定位置
+3. 安装pytorch，cuda，transformer，numpy等组件
+
+## train and eval
+
+**python3 main.py**执行训练，并得到Fine-Tuing后的BERT
+
+**python3 test.py**得到样例输出，或自行阅读代码，修改test函数的传入参数内容即可自定义。
+
+
+
+如果仅用于测试和实际使用，可以下载已经训练好的Model，然后调用test.py下的test函数
+
+Model download
+
+地址：https://pan.baidu.com/s/123qVcRa5SBKcMBLWxP5bKQ
+
+提取码：bert
+
 # 数据
 
 数据使用的是百度发布的DUIE数据，包含了实体识别和关系抽取
+
+原数据地址：https://ai.baidu.com/broad/download?dataset=dureader
 
 我对数据进行了预处理，提取关系抽取需要的部分
 
