@@ -112,3 +112,8 @@ id2rel={0: 'UNK', 1: '主演', 2: '歌手', 3: '简称', 4: '总部地点', 5: '
 ![image.png](figure/image-1603561010074.png)
 
 ![image.png](figure/image.png)
+
+
+
+**2020.11.6：修复了demo.py里的Bug，无需bert-base-chinese依赖**
+

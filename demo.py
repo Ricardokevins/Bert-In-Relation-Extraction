@@ -40,29 +40,13 @@ print(id2rel)
 
 USE_CUDA = torch.cuda.is_available()
 
-def get_train_args():
-    labels_num=len(rel2id)
-    parser=argparse.ArgumentParser()
-    parser.add_argument('--batch_size',type=int,default=1,help = '每批数据的数量')
-    parser.add_argument('--nepoch',type=int,default=30,help = '训练的轮次')
-    parser.add_argument('--lr',type=float,default=0.001,help = '学习率')
-    parser.add_argument('--gpu',type=bool,default=True,help = '是否使用gpu')
-    parser.add_argument('--num_workers',type=int,default=2,help='dataloader使用的线程数量')
-    parser.add_argument('--num_labels',type=int,default=len(id2rel),help='分类类数')
-    parser.add_argument('--data_path',type=str,default='./data',help='数据路径')
-    opt=parser.parse_args()
-    print(opt)
-    return opt
 
-def get_model(opt):
-    model = BertForSequenceClassification.from_pretrained('./bert-base-chinese',num_labels=opt.num_labels)
-    return model
-
-
-def test(net,text_list,ent1_list,ent2_list,result):
-    net.eval()
+def test(net_path,text_list,ent1_list,ent2_list,result):
     max_length=128
-    net=torch.load('model.pth')
+    net=torch.load(net_path)
+    net.eval()
+    if USE_CUDA:
+        net = net.cuda()
     rel_list=[]
     with torch.no_grad():
         for text,ent1,ent2,label in zip(text_list,ent1_list,ent2_list,result):
@@ -95,11 +79,9 @@ def test(net,text_list,ent1_list,ent2_list,result):
             print('\n')
             rel_list.append(id2rel[result])
     return rel_list
-opt = get_train_args()
-model=get_model(opt)
 
-if USE_CUDA:
-    model=model.cuda()
+
+
 
 from random import choice
 
@@ -121,4 +103,4 @@ with open("train.json", 'r', encoding='utf-8') as load_f:
         if total_num<0:
             break
 
-test(model,text_list,ent1,ent2,result)
+test('model.pth',text_list,ent1,ent2,result)
