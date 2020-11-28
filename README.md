@@ -36,7 +36,7 @@ Entity1:  kijimi1  Entity2:  甜蜜与厮杀  Predict Relation:  作者  True Re
 
 **python3 main.py**执行训练，并得到Fine-Tuing后的BERT
 
-**python3 test.py**得到样例输出，或自行阅读代码，修改test函数的传入参数内容即可自定义。
+**python3 demo.py**得到样例输出，或自行阅读代码，修改test函数的传入参数内容即可自定义。
 
 
 
