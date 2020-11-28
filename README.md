@@ -40,7 +40,7 @@ Entity1:  kijimi1  Entity2:  甜蜜与厮杀  Predict Relation:  作者  True Re
 
 
 
-如果仅用于测试和实际使用，可以下载已经训练好的Model，然后调用test.py下的test函数
+如果仅用于测试和实际使用，可以下载已经训练好的Model，然后调用demo.py下的test函数
 
 Model download
 
