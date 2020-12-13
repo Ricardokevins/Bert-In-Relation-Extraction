@@ -16,6 +16,7 @@ def setup_seed(seed):
 
 setup_seed(44)
 def prepare_data():
+    print("---Regenerate Data---")
     with open("train_data.json", 'r', encoding='utf-8') as load_f:
         info=[]
         import random
@@ -28,9 +29,7 @@ def prepare_data():
                 single_data['ent2'] = j["subject"]
                 single_data['text']=dic['text']
                 info.append(single_data)
-        sub_train = []
-        for i in range(20000):
-            sub_train.append(random.choice(info))
+        sub_train = info
     with open("train.json", "w",encoding='utf-8') as dump_f:
         for i in sub_train:
             a = json.dumps(i, ensure_ascii=False)
@@ -50,15 +49,14 @@ def prepare_data():
                 single_data['text']=dic['text']
                 info.append(single_data)
             
-        sub_train = []
-        for i in range(2000):
-            sub_train.append(random.choice(info))
+        sub_train = info
     with open("dev.json", "w",encoding='utf-8') as dump_f:
         for i in sub_train:
             a = json.dumps(i, ensure_ascii=False)
             dump_f.write(a)
             dump_f.write("\n")
 
+#prepare_data()
 
 
 # def map_id_rel():
@@ -92,7 +90,9 @@ def load_train():
     train_data['text'] = []
 
     with open("train.json", 'r', encoding='utf-8') as load_f:
-        for line in load_f.readlines():
+        temp = load_f.readlines()
+        
+        for line in temp:
             dic = json.loads(line)
             if dic['rel'] not in rel2id:
                 train_data['label'].append(0)

@@ -1,0 +1,110 @@
+49
+{0: 'UNK', 1: '主演', 2: '歌手', 3: '简称', 4: '总部地点', 5: '导演', 6: '出生地', 7: '目', 8: '出生日期', 9: '占地面积', 10: '上映时间', 11: '出版社', 12: '作者', 13: '号', 14: '父亲', 15: '毕业院校', 16: '成立日期', 17: '改编自', 18: '主持人', 19: '所属专辑', 20: '连载网站', 21: '作词', 22: '作曲', 23: '创始人', 24: '丈夫', 25: '妻子', 26: '朝代', 27: '民族', 28: '国籍', 29: '身高', 30: '出品公司', 31: '母亲', 32: '编剧', 33: '首都', 34: '面积', 35: '祖籍', 36: '嘉宾', 37: '字', 38: '海拔', 39: '注册资本', 40: '制片人', 41: '董事长', 42: '所在城市', 43: '气候', 44: '人口数量', 45: '邮政编码', 46: '主角', 47: '官方语言', 48: '修业年限'}
+No sample:  UNK
+Traceback (most recent call last):
+  File "demo.py", line 135, in <module>
+    caculate_acc()
+  File "demo.py", line 133, in caculate_acc
+    test('0.9485165028089888model.pth', text_list, ent1, ent2, result)
+  File "demo.py", line 43, in test
+    net=torch.load(net_path)
+  File "/usr/local/lib/python3.6/dist-packages/torch/serialization.py", line 529, in load
+    return _legacy_load(opened_file, map_location, pickle_module, **pickle_load_args)
+  File "/usr/local/lib/python3.6/dist-packages/torch/serialization.py", line 702, in _legacy_load
+    result = unpickler.load()
+  File "/usr/local/lib/python3.6/dist-packages/torch/serialization.py", line 665, in persistent_load
+    deserialized_objects[root_key] = restore_location(obj, location)
+  File "/usr/local/lib/python3.6/dist-packages/torch/serialization.py", line 156, in default_restore_location
+    result = fn(storage, location)
+  File "/usr/local/lib/python3.6/dist-packages/torch/serialization.py", line 136, in _cuda_deserialize
+    return storage_type(obj.size())
+  File "/usr/local/lib/python3.6/dist-packages/torch/cuda/__init__.py", line 480, in _lazy_new
+    return super(_CudaBase, cls).__new__(cls, *args, **kwargs)
+RuntimeError: CUDA out of memory. Tried to allocate 62.00 MiB (GPU 0; 31.75 GiB total capacity; 0 bytes already allocated; 9.75 MiB free; 0 bytes reserved in total by PyTorch)
+49
+{0: 'UNK', 1: '主演', 2: '歌手', 3: '简称', 4: '总部地点', 5: '导演', 6: '出生地', 7: '目', 8: '出生日期', 9: '占地面积', 10: '上映时间', 11: '出版社', 12: '作者', 13: '号', 14: '父亲', 15: '毕业院校', 16: '成立日期', 17: '改编自', 18: '主持人', 19: '所属专辑', 20: '连载网站', 21: '作词', 22: '作曲', 23: '创始人', 24: '丈夫', 25: '妻子', 26: '朝代', 27: '民族', 28: '国籍', 29: '身高', 30: '出品公司', 31: '母亲', 32: '编剧', 33: '首都', 34: '面积', 35: '祖籍', 36: '嘉宾', 37: '字', 38: '海拔', 39: '注册资本', 40: '制片人', 41: '董事长', 42: '所在城市', 43: '气候', 44: '人口数量', 45: '邮政编码', 46: '主角', 47: '官方语言', 48: '修业年限'}
+No sample:  UNK
+98   100   0.98
+93   100   0.93
+93   100   0.93
+100   100   1.0
+95   100   0.95
+94   100   0.94
+100   100   1.0
+100   100   1.0
+56   62   0.9032258064516129
+98   100   0.98
+100   100   1.0
+97   100   0.97
+98   100   0.98
+96   100   0.96
+99   100   0.99
+100   100   1.0
+83   87   0.9540229885057471
+88   100   0.88
+100   100   1.0
+100   100   1.0
+84   100   0.84
+65   100   0.65
+79   83   0.9518072289156626
+90   100   0.9
+88   100   0.88
+100   100   1.0
+99   100   0.99
+98   100   0.98
+100   100   1.0
+98   100   0.98
+72   100   0.72
+69   100   0.69
+44   48   0.9166666666666666
+71   74   0.9594594594594594
+71   100   0.71
+79   100   0.79
+99   100   0.99
+41   41   1.0
+52   52   1.0
+84   100   0.84
+19   61   0.3114754098360656
+69   75   0.92
+100   100   1.0
+51   52   0.9807692307692307
+0   4   0.0
+10   33   0.30303030303030304
+16   20   0.8
+0   1   0.0
+49
+{0: 'UNK', 1: '主演', 2: '歌手', 3: '简称', 4: '总部地点', 5: '导演', 6: '出生地', 7: '目', 8: '出生日期', 9: '占地面积', 10: '上映时间', 11: '出版社', 12: '作者', 13: '号', 14: '父亲', 15: '毕业院校', 16: '成立日期', 17: '改编自', 18: '主持人', 19: '所属专辑', 20: '连载网站', 21: '作词', 22: '作曲', 23: '创始人', 24: '丈夫', 25: '妻子', 26: '朝代', 27: '民族', 28: '国籍', 29: '身高', 30: '出品公司', 31: '母亲', 32: '编剧', 33: '首都', 34: '面积', 35: '祖籍', 36: '嘉宾', 37: '字', 38: '海拔', 39: '注册资本', 40: '制片人', 41: '董事长', 42: '所在城市', 43: '气候', 44: '人口数量', 45: '邮政编码', 46: '主角', 47: '官方语言', 48: '修业年限'}
+--train data--
+torch.Size([364218, 1, 128])
+torch.Size([364218, 1, 128])
+torch.Size([364218])
+--train data--
+torch.Size([364218, 1, 128])
+torch.Size([364218, 1, 128])
+torch.Size([364218])
+--eval data--
+torch.Size([45577, 1, 128])
+torch.Size([45577, 1, 128])
+torch.Size([45577])
+using GPU
+Namespace(batch_size=32, data_path='.', gpu=True, lr=0.001, nepoch=5, num_labels=49, num_workers=2)
+epoch  0  loss:  0.5424124598503113 right 270665 total 364032 Acc: 0.7435198004571026
+Eval Result: right 40268 total 45568 Acc: 0.883690308988764
+epoch  1  loss:  0.2693663537502289 right 331558 total 364032 Acc: 0.9107935566104078
+Eval Result: right 42236 total 45568 Acc: 0.9268785112359551
+epoch  2  loss:  0.18279702961444855 right 340703 total 364032 Acc: 0.9359149745077355
+Eval Result: right 42752 total 45568 Acc: 0.9382022471910112
+epoch  3  loss:  0.12553630769252777 right 343737 total 364032 Acc: 0.9442494066455697
+Eval Result: right 43059 total 45568 Acc: 0.9449394311797753
+epoch  4  loss:  0.11936451494693756 right 345279 total 364032 Acc: 0.9484852979957806
+Eval Result: right 43222 total 45568 Acc: 0.9485165028089888
+epoch  5  loss:  0.11945416033267975 right 346499 total 364032 Acc: 0.9518366517229254
+Eval Result: right 43296 total 45568 Acc: 0.9501404494382022
+epoch  6  loss:  0.12095732241868973 right 347449 total 364032 Acc: 0.9544463124120957
+Eval Result: right 43372 total 45568 Acc: 0.9518082865168539
+epoch  7  loss:  0.15770085155963898 right 347988 total 364032 Acc: 0.9559269514767933
+Eval Result: right 43426 total 45568 Acc: 0.9529933286516854
+epoch  8  loss:  0.2230268120765686 right 348576 total 364032 Acc: 0.957542194092827
+Eval Result: right 43449 total 45568 Acc: 0.9534980688202247
+epoch  9  loss:  0.10405273735523224 right 349090 total 364032 Acc: 0.9589541578762306
+Eval Result: right 43460 total 45568 Acc: 0.9537394662921348

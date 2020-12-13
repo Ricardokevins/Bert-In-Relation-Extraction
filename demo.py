@@ -1,4 +1,3 @@
-import pandas as pd
 import numpy as np
 from sklearn.preprocessing import MinMaxScaler
 import time
@@ -6,10 +5,8 @@ import copy
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
-import torch.autograd as autograd
 import torch.nn.functional
 from torch.utils.data import Dataset, DataLoader
-from torchvision import transforms
 import warnings
 import torch
 import time
@@ -26,7 +23,7 @@ def setup_seed(seed):
      torch.cuda.manual_seed_all(seed)
      np.random.seed(seed)
      random.seed(seed)
-
+warnings.filterwarnings("ignore")
 setup_seed(44)
 
 from transformers import BertModel
@@ -47,7 +44,9 @@ def test(net_path,text_list,ent1_list,ent2_list,result):
     net.eval()
     if USE_CUDA:
         net = net.cuda()
-    rel_list=[]
+    rel_list = []
+    correct=0
+    total=0
     with torch.no_grad():
         for text,ent1,ent2,label in zip(text_list,ent1_list,ent2_list,result):
             sent = ent1 + ent2+ text
@@ -74,10 +73,14 @@ def test(net_path,text_list,ent1_list,ent2_list,result):
             logits = outputs[0]
             _, predicted = torch.max(logits.data, 1)
             result=predicted.cpu().numpy().tolist()[0]
-            print("Source Text: ",text)
-            print("Entity1: ",ent1," Entity2: ",ent2," Predict Relation: ",id2rel[result]," True Relation: ",label)
-            print('\n')
+            #print("Source Text: ",text)
+            #print("Entity1: ",ent1," Entity2: ",ent2," Predict Relation: ",id2rel[result]," True Relation: ",label)
+            if id2rel[result]==label:
+                correct+=1
+            total+=1
+            #print('\n')
             rel_list.append(id2rel[result])
+    print(correct," ",total," ",correct/total)
     return rel_list
 
 
@@ -85,22 +88,48 @@ def test(net_path,text_list,ent1_list,ent2_list,result):
 
 from random import choice
 
-text_list=[]
-ent1=[]
-ent2=[]
-result=[]
-with open("train.json", 'r', encoding='utf-8') as load_f:
-    lines=load_f.readlines()
+def demo_output():
+    text_list=[]
+    ent1=[]
+    ent2=[]
+    result=[]
     total_num=10
-    while total_num>0:
-        line=choice(lines)
-        dic = json.loads(line)
-        text_list.append(dic['text'])
-        ent1.append(dic['ent1'])
-        ent2.append(dic['ent2'])
-        result.append(dic['rel'])
-        total_num-=1
-        if total_num<0:
-            break
-
-test('model.pth',text_list,ent1,ent2,result)
+    with open("train.json", 'r', encoding='utf-8') as load_f:
+        lines=load_f.readlines()       
+        while total_num>0:
+            line=choice(lines)
+            dic = json.loads(line)
+            text_list.append(dic['text'])
+            ent1.append(dic['ent1'])
+            ent2.append(dic['ent2'])
+            result.append(dic['rel'])
+            total_num-=1
+            if total_num<0:
+                break
+    test('model.pth', text_list, ent1, ent2, result)
+    
+def caculate_acc():
+    for i in range(len(rel2id)):
+        temp_rel = id2rel[i]
+        text_list=[]
+        ent1=[]
+        ent2=[]
+        result=[]
+        with open("dev.json", 'r', encoding='utf-8') as load_f:
+            lines = load_f.readlines()
+            for line in lines:
+                line=choice(lines)
+                dic = json.loads(line)
+                if dic['rel']==temp_rel:
+                    text_list.append(dic['text'])
+                    ent1.append(dic['ent1'])
+                    ent2.append(dic['ent2'])
+                    result.append(dic['rel'])
+                if len(text_list)==100:
+                    break
+        if len(text_list) == 0:
+            print("No sample: ", temp_rel)
+        else:
+            test('0.9485165028089888model.pth', text_list, ent1, ent2, result)
+    
+caculate_acc()

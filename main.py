@@ -1,4 +1,3 @@
-import pandas as pd
 import numpy as np
 from sklearn.preprocessing import MinMaxScaler
 import time
@@ -42,6 +41,8 @@ rel2id, id2rel = map_id_rel()
 
 print(len(rel2id))
 print(id2rel)
+
+
 
 USE_CUDA = torch.cuda.is_available()
 #USE_CUDA=False
@@ -97,13 +98,13 @@ dev_dataset = torch.utils.data.TensorDataset(dev_text,dev_mask,dev_label)
 def get_train_args():
     labels_num=len(rel2id)
     parser=argparse.ArgumentParser()
-    parser.add_argument('--batch_size',type=int,default=32,help = '每批数据的数量')
-    parser.add_argument('--nepoch',type=int,default=5,help = '训练的轮次')
-    parser.add_argument('--lr',type=float,default=0.001,help = '学习率')
-    parser.add_argument('--gpu',type=bool,default=True,help = '是否使用gpu')
-    parser.add_argument('--num_workers',type=int,default=2,help='dataloader使用的线程数量')
-    parser.add_argument('--num_labels',type=int,default=labels_num,help='分类类数')
-    parser.add_argument('--data_path',type=str,default='.',help='数据路径')
+    parser.add_argument('--batch_size',type=int,default=32)
+    parser.add_argument('--nepoch',type=int,default=5)
+    parser.add_argument('--lr',type=float,default=0.001)
+    parser.add_argument('--gpu',type=bool,default=True)
+    parser.add_argument('--num_workers',type=int,default=2)
+    parser.add_argument('--num_labels',type=int,default=labels_num)
+    parser.add_argument('--data_path',type=str,default='.')
     opt=parser.parse_args()
     print(opt)
     return opt
@@ -122,8 +123,11 @@ def eval(net,dataset, batch_size):
         iter = 0
         for text,mask, y in train_iter:
             iter += 1
+            if text.size(0)!=batch_size:
+                break
             text=text.reshape(batch_size,-1)
             mask = mask.reshape(batch_size, -1)
+            
             if USE_CUDA:
                 text=text.cuda()
                 mask=mask.cuda()
@@ -163,11 +167,11 @@ def train(net,dataset,num_epochs, learning_rate,  batch_size):
             if USE_CUDA:
                 text=text.cuda()
                 mask=mask.cuda()
-                y=y.cuda()
-            outputs= net(text, attention_mask=mask,labels=y)
+                y = y.cuda()
+            #print(text.shape)
+            loss, logits= net(text, attention_mask=mask,labels=y)
             #print(y)
-            loss, logits = outputs[0],outputs[1]
-            _, predicted = torch.max(logits.data, 1)
+            #print(loss.shape)
             #print("predicted",predicted)
             #print("answer", y)
             loss.backward()
@@ -175,20 +179,25 @@ def train(net,dataset,num_epochs, learning_rate,  batch_size):
             #print(outputs[1].shape)
             #print(output)
             #print(outputs[1])
+            _, predicted = torch.max(logits.data, 1)
             total += text.size(0)
             correct += predicted.data.eq(y.data).cpu().sum()
         loss=loss.detach().cpu()
         print("epoch ", str(epoch)," loss: ", loss.mean().numpy().tolist(),"right", correct.cpu().numpy().tolist(), "total", total, "Acc:", correct.cpu().numpy().tolist()/total)
-        eval(model,dev_dataset,8)
+        acc = eval(model, dev_dataset, 32)
+        if acc > pre:
+            pre = acc
+            torch.save(model, str(acc)+'.pth')
     return
 
 opt = get_train_args()
 model=get_model(opt)
-
+#model=nn.DataParallel(model,device_ids=[0,1])
 if USE_CUDA:
     model=model.cuda()
 
-eval(model,dev_dataset,8)
-train(model,train_dataset,10,0.001,32)
-eval(model,dev_dataset,8)
-torch.save(model, 'model.pth')
+#eval(model,dev_dataset,8)
+
+train(model,train_dataset,10,0.002,256)
+#eval(model,dev_dataset,8)
+
