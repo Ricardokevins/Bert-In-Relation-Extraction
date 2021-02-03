@@ -38,7 +38,7 @@ print(id2rel)
 USE_CUDA = torch.cuda.is_available()
 
 
-def test(net_path,text_list,ent1_list,ent2_list,result):
+def test(net_path,text_list,ent1_list,ent2_list,result,show_result=False):
     max_length=128
     net=torch.load(net_path)
     net.eval()
@@ -72,9 +72,10 @@ def test(net_path,text_list,ent1_list,ent2_list,result):
             # print(y)
             logits = outputs[0]
             _, predicted = torch.max(logits.data, 1)
-            result=predicted.cpu().numpy().tolist()[0]
-            #print("Source Text: ",text)
-            #print("Entity1: ",ent1," Entity2: ",ent2," Predict Relation: ",id2rel[result]," True Relation: ",label)
+            result = predicted.cpu().numpy().tolist()[0]
+            if show_result:
+                print("Source Text: ",text)
+                print("Entity1: ",ent1," Entity2: ",ent2," Predict Relation: ",id2rel[result]," True Relation: ",label)
             if id2rel[result]==label:
                 correct+=1
             total+=1
@@ -93,7 +94,7 @@ def demo_output():
     ent1=[]
     ent2=[]
     result=[]
-    total_num=10
+    total_num=3
     with open("train.json", 'r', encoding='utf-8') as load_f:
         lines=load_f.readlines()       
         while total_num>0:
@@ -106,8 +107,9 @@ def demo_output():
             total_num-=1
             if total_num<0:
                 break
-    test('model.pth', text_list, ent1, ent2, result)
-    
+    test('0.9537394662921348.pth', text_list, ent1, ent2, result,True)
+
+# 计算每一个类别的正确率
 def caculate_acc():
     for i in range(len(rel2id)):
         temp_rel = id2rel[i]
@@ -130,6 +132,7 @@ def caculate_acc():
         if len(text_list) == 0:
             print("No sample: ", temp_rel)
         else:
-            test('0.9485165028089888model.pth', text_list, ent1, ent2, result)
-    
+            test('0.9537394662921348.pth', text_list, ent1, ent2, result)
+
+demo_output()
 caculate_acc()
