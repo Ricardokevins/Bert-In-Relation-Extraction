@@ -56,7 +56,15 @@ Model download
 
 原数据地址：https://ai.baidu.com/broad/download?dataset=dureader
 
-![image-20201025015454713](figure/image-20201025015454713.png)
+打开后在左侧栏选择knowledge extraction，然后如下界面点击下载train_data.json和dev_data.json，然后放到对应的位置
+
+**运行loader.py里的prepare_data()**，观察到目录里生成了**train.json和dev.json**
+
+截止这里，数据的预处理完成了，可以运行main和demo
+
+![Inkedimage-20210204112312401_LI](README.assets/Inkedimage-20210204112312401_LI.jpg)
+
+
 
 我对数据进行了预处理，提取关系抽取需要的部分
 
