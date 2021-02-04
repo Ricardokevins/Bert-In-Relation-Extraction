@@ -18,7 +18,7 @@ import json
 import os
 from transformers import BertTokenizer
 from transformers import BertForSequenceClassification
-from transformers import BertConfig
+
 #from transformers import BertPreTrainedModel
 
 
@@ -98,7 +98,7 @@ dev_dataset = torch.utils.data.TensorDataset(dev_text,dev_mask,dev_label)
 def get_train_args():
     labels_num=len(rel2id)
     parser=argparse.ArgumentParser()
-    parser.add_argument('--batch_size',type=int,default=32)
+    parser.add_argument('--batch_size',type=int,default=2)
     parser.add_argument('--nepoch',type=int,default=5)
     parser.add_argument('--lr',type=float,default=0.001)
     parser.add_argument('--gpu',type=bool,default=True)

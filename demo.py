@@ -15,7 +15,7 @@ import json
 import os
 from transformers import BertTokenizer
 from transformers import BertForSequenceClassification
-from transformers import BertConfig
+
 #from transformers import BertPreTrainedModel
 import random
 def setup_seed(seed):

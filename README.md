@@ -1,6 +1,6 @@
 # Bert In Relation Extraction
 
-大创所需，所以写了一个模型用来完成关系抽取（模型很简单，一拍脑袋想的然后就写了）
+大创所需，所以写了一个模型用来完成关系抽取（模型很简单，一拍脑袋想的然后就写了），**欢迎Star，Folk以及PR！！（算是对开源和整理的肯定吧）**
 
 最后在百度DuIE数据集的完整测试集上达到95.37%正确率
 
@@ -29,12 +29,14 @@ Entity1:  kijimi1  Entity2:  甜蜜与厮杀  Predict Relation:  作者  True Re
 
 ## 准备
 
-1. 将DUIE文件路径放置于代码同目录（或者自己的数据，具体可见loader.py)
+1. 将DUIE文件路径放置于代码同目录（或者自己的数据，具体可见loader.py)，更加具体的获取和数据处理见下文
 
 2. 将bert-base-chinese放置于同目录下的bert-base-chinese下或者自行指定位置
-3. 安装pytorch，cuda，transformer，numpy等组件
+3. 安装pytorch，cuda，transformer，numpy等组件（实际测试可运行环境为**pytorch=1.5.1 transformers=2.5.1**)
 
 ## train and eval
+
+（注意，在此之前，请做好数据的获取和预处理，步骤见文）
 
 **python3 main.py**执行训练，并得到Fine-Tuing后的BERT
 
@@ -42,12 +44,25 @@ Entity1:  kijimi1  Entity2:  甜蜜与厮杀  Predict Relation:  作者  True Re
 
 
 
-如果仅用于测试和实际使用，可以下载已经训练好的Model，然后调用demo.py下的test函数
+如果仅用于测试和实际使用，可以下载已经训练好的Model，然后调用demo.py下对应函数
 
-Model download
+**caculate_acc**：计算每一个类别的正确率
+
+**demo_output**：随机选择样本，输出原文，实体对以及预测的关系，即实例输出
+
+
+
+
+
+Model download（92.5%正确率的）
 
 地址：https://pan.baidu.com/s/123qVcRa5SBKcMBLWxP5bKQ
 
+提取码：bert
+
+Model download（95.37%正确率的）
+
+链接：https://pan.baidu.com/s/1ffOzN3FZ1foepB6NcSF5qQ 
 提取码：bert
 
 # 数据
@@ -58,7 +73,7 @@ Model download
 
 打开后在左侧栏选择knowledge extraction，然后如下界面点击下载train_data.json和dev_data.json，然后放到对应的位置
 
-**运行loader.py里的prepare_data()**，观察到目录里生成了**train.json和dev.json**
+**运行loader.py里的prepare_data**，观察到目录里生成了**train.json和dev.json**
 
 截止这里，数据的预处理完成了，可以运行main和demo
 
@@ -131,3 +146,6 @@ id2rel={0: 'UNK', 1: '主演', 2: '歌手', 3: '简称', 4: '总部地点', 5: '
 
 **2020.11.6：修复了demo.py里的Bug，无需bert-base-chinese依赖**
 
+**2020.2.3 ：更新了demo.py，优化了结构**
+
+**2020.2.4： 更新了readme关于数据获取部分的说明，上传和更新了第二次训练95%Acc的模型文件**
