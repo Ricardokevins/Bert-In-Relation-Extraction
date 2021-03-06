@@ -14,7 +14,8 @@ import argparse
 import json
 import os
 from transformers import BertTokenizer
-from transformers import BertForSequenceClassification
+from model import BERT_Classifier
+
 
 #from transformers import BertPreTrainedModel
 import random

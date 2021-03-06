@@ -95,22 +95,10 @@ if USE_CUDA:
 train_dataset = torch.utils.data.TensorDataset(train_text,train_mask,train_label)
 dev_dataset = torch.utils.data.TensorDataset(dev_text,dev_mask,dev_label)
 
-def get_train_args():
+def get_model():
     labels_num=len(rel2id)
-    parser=argparse.ArgumentParser()
-    parser.add_argument('--batch_size',type=int,default=2)
-    parser.add_argument('--nepoch',type=int,default=5)
-    parser.add_argument('--lr',type=float,default=0.001)
-    parser.add_argument('--gpu',type=bool,default=True)
-    parser.add_argument('--num_workers',type=int,default=2)
-    parser.add_argument('--num_labels',type=int,default=labels_num)
-    parser.add_argument('--data_path',type=str,default='.')
-    opt=parser.parse_args()
-    print(opt)
-    return opt
-
-def get_model(opt):
-    model = BertForSequenceClassification.from_pretrained('./bert-base-chinese',num_labels=opt.num_labels)
+    from model import BERT_Classifier
+    model = BERT_Classifier(labels_num)
     return model
 
 
@@ -133,7 +121,7 @@ def eval(net,dataset, batch_size):
                 mask=mask.cuda()
                 y=y.cuda()
 
-            outputs= net(text, attention_mask=mask,labels=y)
+            outputs= net(text, mask,y)
             #print(y)
             loss, logits = outputs[0],outputs[1]
             _, predicted = torch.max(logits.data, 1)
@@ -169,7 +157,7 @@ def train(net,dataset,num_epochs, learning_rate,  batch_size):
                 mask=mask.cuda()
                 y = y.cuda()
             #print(text.shape)
-            loss, logits= net(text, attention_mask=mask,labels=y)
+            loss, logits= net(text, mask,y)
             #print(y)
             #print(loss.shape)
             #print("predicted",predicted)
@@ -182,7 +170,7 @@ def train(net,dataset,num_epochs, learning_rate,  batch_size):
             _, predicted = torch.max(logits.data, 1)
             total += text.size(0)
             correct += predicted.data.eq(y.data).cpu().sum()
-        loss=loss.detach().cpu()
+        loss = loss.detach().cpu()
         print("epoch ", str(epoch)," loss: ", loss.mean().numpy().tolist(),"right", correct.cpu().numpy().tolist(), "total", total, "Acc:", correct.cpu().numpy().tolist()/total)
         acc = eval(model, dev_dataset, 32)
         if acc > pre:
@@ -190,14 +178,14 @@ def train(net,dataset,num_epochs, learning_rate,  batch_size):
             torch.save(model, str(acc)+'.pth')
     return
 
-opt = get_train_args()
-model=get_model(opt)
+
+model=get_model()
 #model=nn.DataParallel(model,device_ids=[0,1])
 if USE_CUDA:
     model=model.cuda()
 
 #eval(model,dev_dataset,8)
 
-train(model,train_dataset,10,0.002,256)
+train(model,train_dataset,10,0.002,4)
 #eval(model,dev_dataset,8)
 

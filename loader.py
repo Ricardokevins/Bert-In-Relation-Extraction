@@ -91,7 +91,7 @@ def load_train():
 
     with open("train.json", 'r', encoding='utf-8') as load_f:
         temp = load_f.readlines()
-        
+        temp = temp[:200]
         for line in temp:
             dic = json.loads(line)
             if dic['rel'] not in rel2id:
