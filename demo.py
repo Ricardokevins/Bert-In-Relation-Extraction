@@ -69,7 +69,7 @@ def test(net_path,text_list,ent1_list,ent2_list,result,show_result=False):
             if USE_CUDA:
                 indexed_tokens=indexed_tokens.cuda()
                 att_mask=att_mask.cuda()
-            outputs = net(indexed_tokens, mask=att_mask)
+            outputs = net(indexed_tokens, att_mask)
             # print(y)
             logits = outputs[0]
             _, predicted = torch.max(logits.data, 1)
@@ -108,7 +108,7 @@ def demo_output():
             total_num-=1
             if total_num<0:
                 break
-    test('0.9537394662921348.pth', text_list, ent1, ent2, result,True)
+    test('0.28223753511235955.pth', text_list, ent1, ent2, result,True)
 
 # 计算每一个类别的正确率
 def caculate_acc():
@@ -133,7 +133,7 @@ def caculate_acc():
         if len(text_list) == 0:
             print("No sample: ", temp_rel)
         else:
-            test('0.9537394662921348.pth', text_list, ent1, ent2, result)
+            test('0.28223753511235955.pth', text_list, ent1, ent2, result)
 
 demo_output()
 caculate_acc()
