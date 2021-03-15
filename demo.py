@@ -69,7 +69,7 @@ def test(net_path,text_list,ent1_list,ent2_list,result,show_result=False):
             if USE_CUDA:
                 indexed_tokens=indexed_tokens.cuda()
                 att_mask=att_mask.cuda()
-            outputs = net(indexed_tokens, attention_mask=att_mask)
+            outputs = net(indexed_tokens, mask=att_mask)
             # print(y)
             logits = outputs[0]
             _, predicted = torch.max(logits.data, 1)
