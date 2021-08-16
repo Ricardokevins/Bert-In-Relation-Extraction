@@ -4,6 +4,8 @@
 
 最后在百度DuIE数据集的完整测试集上达到95.37%正确率
 
+引流：我弄的一个自然语言处理仓库，用Pytorch实现了很多自然语言处理常用的任务，可以参考参考 https://github.com/Ricardokevins/Kevinpro-NLP-demo
+
 效果：
 
 ```
