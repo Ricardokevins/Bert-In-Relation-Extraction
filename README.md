@@ -6,6 +6,8 @@
 
 引流：我弄的一个自然语言处理仓库，用Pytorch实现了很多自然语言处理常用的任务，可以参考参考 https://github.com/Ricardokevins/Kevinpro-NLP-demo
 
+（PS：我目前不再做关系抽取的相关工作，所以这个repo理论上不会增加新的feature了，但是有bug或者需要升级代码api可以在issue里留言，我会收到邮件并回复）
+
 效果：
 
 ```
