@@ -1,3 +1,10 @@
+#!/usr/bin/env python
+# -*- encoding: utf-8 -*-
+'''
+@Description:       : Model defined here. Use BERT as BackBone
+@Author             : Kevinpro
+@version            : 1.0
+'''
 from transformers import BertModel
 import torch.nn as nn
 class BERT_Classifier(nn.Module):

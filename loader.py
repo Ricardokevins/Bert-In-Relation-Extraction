@@ -1,3 +1,10 @@
+#!/usr/bin/env python
+# -*- encoding: utf-8 -*-
+'''
+@Description:       : dataloader and process data
+@Author             : Kevinpro
+@version            : 1.0
+'''
 import json
 from transformers import BertTokenizer
 import torch.nn as nn

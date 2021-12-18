@@ -1,3 +1,10 @@
+#!/usr/bin/env python
+# -*- encoding: utf-8 -*-
+'''
+@Description:       : main function to carry out training and testing
+@Author             : Kevinpro
+@version            : 1.0
+'''
 import numpy as np
 from sklearn.preprocessing import MinMaxScaler
 import time
