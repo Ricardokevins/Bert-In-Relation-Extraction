@@ -1,14 +1,14 @@
 # Bert In Relation Extraction
 
-大创所需，所以写了一个模型用来完成关系抽取（模型很简单，一拍脑袋想的然后就写了），**欢迎Star，Folk以及PR！！（算是对开源和整理的肯定吧）**
+大创所需，所以写了一个模型用来完成关系抽取（模型很简单，一拍脑袋想的然后就写了），**假如项目对你有用的话，欢迎Star ~~**
 
 最后在百度DuIE数据集的完整测试集上达到95.37%正确率
 
-引流：我弄的一个自然语言处理仓库，用Pytorch实现了很多自然语言处理常用的任务，可以参考参考 https://github.com/Ricardokevins/Kevinpro-NLP-demo
+**PS1：最近：我弄的一个自然语言处理仓库，用Pytorch实现了很多自然语言处理常用的任务，可以参考参考 https://github.com/Ricardokevins/Kevinpro-NLP-demo**
 
-（PS：我目前不再做关系抽取的相关工作，所以这个repo理论上不会增加新的feature了，但是有bug或者需要升级代码api可以在issue里留言，我会收到邮件并回复）
+**PS2：我目前不再做关系抽取的相关工作，所以这个repo理论上不会增加新的feature了，但是有bug或者需要升级代码api可以在issue里留言，我会收到邮件并回复，请不要用私人联系方式**
 
-效果：
+# 效果：
 
 ```
 Source Text:  《在夏天冬眠》是容祖儿演唱的一首歌曲，收录于专辑《独照》中
