@@ -69,6 +69,9 @@ Model download（95.37%正确率的）
 链接：https://pan.baidu.com/s/1ffOzN3FZ1foepB6NcSF5qQ 
 提取码：bert
 
+PS：截至2021.12.18 模型被下载了300多次了，只有43个star...... QAQ
+
+
 # 数据
 
 数据使用的是百度发布的DUIE数据，包含了实体识别和关系抽取
