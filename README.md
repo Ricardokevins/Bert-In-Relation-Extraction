@@ -61,14 +61,11 @@ Entity1:  kijimi1  Entity2:  甜蜜与厮杀  Predict Relation:  作者  True Re
 
 
 Model download（92.5%正确率的）
-
-地址：https://pan.baidu.com/s/123qVcRa5SBKcMBLWxP5bKQ
-
+链接：https://pan.baidu.com/s/1f-sXZTzvb0Bn0qGAdTRSSg 
 提取码：bert
 
 Model download（95.37%正确率的）
-
-链接：https://pan.baidu.com/s/1ffOzN3FZ1foepB6NcSF5qQ 
+链接：https://pan.baidu.com/s/1nbC4qZUWT3DZUIAGVT1Tyw 
 提取码：bert
 
 **PS：截至2021.12.18 模型被下载了300多次了，只有43个star...... QAQ**
