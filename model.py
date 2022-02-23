@@ -14,9 +14,8 @@ class BERT_Classifier(nn.Module):
         self.dropout = nn.Dropout(0.1,inplace=False)
         self.fc = nn.Linear(768, label_num)
         self.criterion = nn.CrossEntropyLoss()
-    def forward(self, x, mask,label=None):
-        
-        x = self.encoder(x, attention_mask=mask)[0]
+    def forward(self, x, attention_mask ,label=None):
+        x = self.encoder(x, attention_mask=attention_mask)[0]
         x = x[:, 0, :]
         x = self.dropout(x)
         x = self.fc(x)

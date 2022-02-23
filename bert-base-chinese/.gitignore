@@ -1,3 +1,5 @@
-bert-base-chinese-vocab.txt
+vocab.txt
 config.json
 pytorch_model.bin
+*.bin
+*.pth

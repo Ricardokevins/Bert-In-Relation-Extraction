@@ -49,6 +49,10 @@ USE_CUDA = torch.cuda.is_available()
 def test(net_path,text_list,ent1_list,ent2_list,result,show_result=False):
     max_length=128
     net=torch.load(net_path)
+
+    # For only CPU device
+    #net=torch.load(net_path,map_location=torch.device('cpu') )
+    
     net.eval()
     if USE_CUDA:
         net = net.cuda()
@@ -76,9 +80,12 @@ def test(net_path,text_list,ent1_list,ent2_list,result,show_result=False):
             if USE_CUDA:
                 indexed_tokens=indexed_tokens.cuda()
                 att_mask=att_mask.cuda()
-            outputs = net(indexed_tokens, mask=att_mask)
+            outputs = net(indexed_tokens, attention_mask=att_mask)
             # print(y)
-            logits = outputs[1]
+            if len(outputs) == 1:
+                logits = outputs[0] # 保证和旧模型参数的一致性
+            else:
+                logits = outputs[1]
             _, predicted = torch.max(logits.data, 1)
             result = predicted.cpu().numpy().tolist()[0]
             if show_result:
@@ -102,7 +109,7 @@ def demo_output():
     ent1=[]
     ent2=[]
     result=[]
-    total_num=3
+    total_num=5
     with open("train.json", 'r', encoding='utf-8') as load_f:
         lines=load_f.readlines()       
         while total_num>0:
@@ -115,7 +122,7 @@ def demo_output():
             total_num-=1
             if total_num<0:
                 break
-    test('0.28223753511235955.pth', text_list, ent1, ent2, result,True)
+    test('./bert-base-chinese/test.pth', text_list, ent1, ent2, result,True)
 
 # 计算每一个类别的正确率
 def caculate_acc():
@@ -125,7 +132,7 @@ def caculate_acc():
         ent1=[]
         ent2=[]
         result=[]
-        with open("dev.json", 'r', encoding='utf-8') as load_f:
+        with open("train.json", 'r', encoding='utf-8') as load_f:
             lines = load_f.readlines()
             for line in lines:
                 line=choice(lines)
@@ -140,7 +147,8 @@ def caculate_acc():
         if len(text_list) == 0:
             print("No sample: ", temp_rel)
         else:
-            test('0.28223753511235955.pth', text_list, ent1, ent2, result)
+            test('test.pth', text_list, ent1, ent2, result)
 
 demo_output()
+exit()
 caculate_acc()

@@ -15,7 +15,6 @@ import torch.optim as optim
 import torch.autograd as autograd
 import torch.nn.functional
 from torch.utils.data import Dataset, DataLoader
-from torchvision import transforms
 from transformers import AdamW
 import warnings
 import torch
@@ -49,8 +48,16 @@ rel2id, id2rel = map_id_rel()
 print(len(rel2id))
 print(id2rel)
 
+def get_model():
+    labels_num=len(rel2id)
+    from model import BERT_Classifier
+    model = BERT_Classifier(labels_num)
+    return model
 
-
+model=get_model()
+# torch.save(model, './bert-base-chinese/test'+'.pth')
+# exit()
+# exit()
 USE_CUDA = torch.cuda.is_available()
 #USE_CUDA=False
 
@@ -102,11 +109,7 @@ if USE_CUDA:
 train_dataset = torch.utils.data.TensorDataset(train_text,train_mask,train_label)
 dev_dataset = torch.utils.data.TensorDataset(dev_text,dev_mask,dev_label)
 
-def get_model():
-    labels_num=len(rel2id)
-    from model import BERT_Classifier
-    model = BERT_Classifier(labels_num)
-    return model
+
 
 
 def eval(net,dataset, batch_size):
@@ -186,13 +189,13 @@ def train(net,dataset,num_epochs, learning_rate,  batch_size):
     return
 
 
-model=get_model()
+
 #model=nn.DataParallel(model,device_ids=[0,1])
 if USE_CUDA:
     model=model.cuda()
 
 #eval(model,dev_dataset,8)
 
-train(model,train_dataset,10,0.002,4)
+train(model,train_dataset,1,0.002,4)
 #eval(model,dev_dataset,8)
 
