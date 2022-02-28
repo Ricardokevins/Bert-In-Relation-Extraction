@@ -139,6 +139,10 @@ def load_dev():
 
             sent=dic['ent1']+dic['ent2']+dic['text']
             indexed_tokens = tokenizer.encode(sent, add_special_tokens=True)
+
+
+            
+
             avai_len = len(indexed_tokens)
             while len(indexed_tokens) <  max_length:
                 indexed_tokens.append(0)  # 0 is id for [PAD]
