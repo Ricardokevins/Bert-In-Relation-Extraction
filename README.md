@@ -75,7 +75,14 @@ Model download（95.37%正确率的）
 
 数据使用的是百度发布的DUIE数据，包含了实体识别和关系抽取
 
+旧链接：
+
 原数据地址：https://ai.baidu.com/broad/download?dataset=dureader
+
+由于百度可能重新组织了数据集的页面，所以旧链接似乎用不了了，我去AIStduio里找了一个我印象里差不多的（关键词是DUIE，Knowledge Extraction）
+你们可以根据自己的需要去找自己喜欢的数据集
+
+新链接：https://aistudio.baidu.com/aistudio/datasetdetail/88472
 
 打开后在左侧栏选择knowledge extraction，然后如下界面点击下载train_data.json和dev_data.json，然后放到对应的位置
 
