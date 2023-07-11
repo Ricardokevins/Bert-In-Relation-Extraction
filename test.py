@@ -88,7 +88,7 @@ def test(net,text_list,ent1_list,ent2_list,result):
                 att_mask=att_mask.cuda()
             outputs = net(indexed_tokens, attention_mask=att_mask)
             # print(y)
-            logits = outputs[0]
+            logits = outputs[1]
             _, predicted = torch.max(logits.data, 1)
             result=predicted.cpu().numpy().tolist()[0]
             print("Source Text: ",text)
